@@ -8,3 +8,16 @@ before_install:
 
 script:
   - docker run -e CI=true kugeblitzz/docker-react-travis-test npm run test -- --coverage
+
+deploy:
+  provider: elasticbeanstalk
+  region: "ap-southeast-1"
+  app: "docker-react-travis-test"
+  env: "Dockerreacttravistest-env"
+  bucket_name: elasticbeanstalk-ap-southeast-1-297170136033
+  bucket_path: "docker-react-travis-test"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: "$AWS_SECRET_KEY"
